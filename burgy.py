@@ -5,6 +5,7 @@ import pygsheets
 
 from findBurgy import *
 
+version = "1.0.3"
 
 if len(sys.argv) != 2:
     print(f'Please run command as `python {sys.argv[0]} [Burgy File Name]`')
@@ -29,6 +30,8 @@ except Exception as ex:
 
 sh = client.open_by_key('1jtn3i6jaRMc0NQhJtZkJZ1cWgbYdRdn1e51dksYrhes')
 wks = sh.worksheet_by_title('Burgacha')
+
+wks.cell('A1').note = f"Using Burgy Uploader v{version}"
 try:
     lines = open(sys.argv[1]).read().splitlines()
     for line in lines:
