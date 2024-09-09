@@ -1,11 +1,7 @@
 def findBurgy(divLine, cell, wks, burgyNames):
-    burgyNames = str(burgyNames).split(">, <Cell ")
-    burgyNames.pop(0)
+    burgyNames = burgyNames[0]
     for burgy in burgyNames:
-        burgy = str(burgy)
-        burgy = burgy.split(' \'')
-        burgy[1] = burgy[1].split('\'')[0]
-        
+        burgy = [burgy.label, burgy.value]
         if burgy[1] == divLine[1]:
             sillyColumn = burgy[0].split('2')[0]
             sillyRow = cell[0].split('A')[1]

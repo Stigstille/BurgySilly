@@ -26,6 +26,7 @@ except Exception as ex:
     print("Error encountered...")
     print(ex)
     exit()
+
 sh = client.open_by_key('1jtn3i6jaRMc0NQhJtZkJZ1cWgbYdRdn1e51dksYrhes')
 wks = sh.worksheet_by_title('Burgacha')
 try:
@@ -43,19 +44,16 @@ try:
                 madeNew = False
                 found = False
                 for cell in usrnms:
-                    cell = str(cell)
-                    cell = cell.split('[<Cell ')
-                    cell = cell[1].split(' \'')
-                    cell[1] = cell[1].split('\'>]')[0]
-                    if (cell[1].lower() == divLine[0].lower()) and not found:
-                        findBurgy(divLine, cell, wks, burgyNames)
+                    cellData = [cell[0].label, cell[0].value]
+                    if (cellData[1].lower() == divLine[0].lower()) and not found:
+                        findBurgy(divLine, cellData, wks, burgyNames)
                         found = True
-                    elif (cell[1] == "") and not found:
+                    elif (cellData[1] == "") and not found:
                         if not madeNew:
-                            if cell[0] != "A3":
-                                wks.update_value(f'{cell[0]}', divLine[0])
+                            if cellData[0] != "A3":
+                                wks.update_value(f'{cellData[0]}', divLine[0])
                                 madeNew = True
-                                findBurgy(divLine, cell, wks, burgyNames)
+                                findBurgy(divLine, cellData, wks, burgyNames)
                                 found = True
 
                         
