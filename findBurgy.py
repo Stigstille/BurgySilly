@@ -10,7 +10,9 @@ def findBurgy(divLine, cell, wks, burgyNames):
                 origVal = int(origVal)
                 print(f"Original Value: {origVal}")
                 wks.update_value(f'{sillyColumn}{sillyRow}', str(origVal + 1))
+                return origVal + 1
             else:
                 print(f"New Burgy!!")
                 wks.update_value(f'{sillyColumn}{sillyRow}', str(1))
-    return
+                return "their first"
+    return "It broke :3"

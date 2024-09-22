@@ -1,3 +1,4 @@
 google-auth==2.30.0
 google-api-python-client==2.132.0
 pygsheets==2.0.6
+requests

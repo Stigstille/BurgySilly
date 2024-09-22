@@ -1,11 +1,12 @@
 import sys
 import os.path
-
+import requests
 import pygsheets
 
 from findBurgy import *
 
-version = "1.0.3"
+version = "1.0.4"
+url="DISCORDWEBHOOKURL" # NEVER PUBLISH THIS!!!!
 
 if len(sys.argv) != 2:
     print(f'Please run command as `python {sys.argv[0]} [Burgy File Name]`')
@@ -31,6 +32,11 @@ except Exception as ex:
 sh = client.open_by_key('1jtn3i6jaRMc0NQhJtZkJZ1cWgbYdRdn1e51dksYrhes')
 wks = sh.worksheet_by_title('Burgacha')
 
+data = {
+    "content" : f"Using Burgy Uploader v{version}",
+    "username" : f"Burgy Uploader v{version}"
+}
+requests.post(url, json=data)
 wks.cell('A1').note = f"Using Burgy Uploader v{version}"
 try:
     lines = open(sys.argv[1]).read().splitlines()
@@ -49,14 +55,16 @@ try:
                 for cell in usrnms:
                     cellData = [cell[0].label, cell[0].value]
                     if (cellData[1].lower() == divLine[0].lower()) and not found:
-                        findBurgy(divLine, cellData, wks, burgyNames)
+                        data["content"] = f"{divLine[0]} now has {findBurgy(divLine, cellData, wks, burgyNames)} {divLine[1]}!!"
+                        requests.post(url, json=data)
                         found = True
                     elif (cellData[1] == "") and not found:
                         if not madeNew:
                             if cellData[0] != "A3":
                                 wks.update_value(f'{cellData[0]}', divLine[0])
                                 madeNew = True
-                                findBurgy(divLine, cellData, wks, burgyNames)
+                                data["content"] = f"# NEW USER!!\n{divLine[0]} now has {findBurgy(divLine, cellData, wks, burgyNames)} {divLine[1]}!!"
+                                requests.post(url, json=data)
                                 found = True
 
                         
