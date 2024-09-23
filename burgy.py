@@ -70,6 +70,8 @@ try:
                         
             else:
                 print(f"This burgy ({divLine[1]}) was triggered manually (10 Day Streak)")
+                data["content"] = f"There was a burgy ({divLine[1]}) that was triggered manually (10 Day Streak)"
+                requests.post(url, json=data)
 
 except IOError:
     print("Could not read file:", sys.arv[1])
