@@ -84,8 +84,7 @@ try:
                 requests.post(url, json=data)
     usrnmsFinal = wks.range('A:A')
     for cell in usrnmsFinal:
-        cellData = [cell[0].label, cell[0].value]
-        if (not cellData[0] in ["A1", "A2", "A3"]) and (not cellData[1] == ""):
+        if (not cell[0].label in ["A1","A2","A3"]) and (cell[0].value != ""):
             totalUsers += 1
     data["content"] = f"<:BURGYBUTCLOSEUP:1202870909178875985> DAILY BURGY STATS <:BURGYBUTCLOSEUP:1202870909178875985> \nNew Burgies rolled today: {newBurgys}\nFirst Time Burgy rollers: {newUsers}\nTotal Burgies rolled: {totalBurgys}\nTotal Burgy Enjoyers: {totalUsers}\nBurgy uploader created by: Stigstille"
     requests.post(url, json=data)
